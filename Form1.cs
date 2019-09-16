@@ -18,16 +18,7 @@ namespace practica_crud
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            string variable = "hola";
-            //sender invoca la clase data acces objet
-            Conexion conex = new Conexion();
-            //sender crea un array sqlparametros y se llena con los datos a enviar al procedimiento almacenado
-            SqlParameter[] parametros =
-            {
-                new SqlParameter("@nombre",variable)
-            };
-            //se envian los parametros y el nombre de el procedimeinto almacenado al dao
-            DataSet result = conex.ejecutarprocedimiento("procedimiento", parametros);
+
         }
 
         private async void Button1_Click(object sender, EventArgs e)
@@ -59,5 +50,25 @@ namespace practica_crud
 
         }
 
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            string nombre = textBox1.Text;
+            string apellido = textBox2.Text;
+            string correo = textBox3.Text;
+            string contrasena = textBox4.Text;
+
+            //sender invoca la clase data acces objet
+            Conexion conex = new Conexion();
+            //sender crea un array sqlparametros y se llena con los datos a enviar al procedimiento almacenado
+            SqlParameter[] parametros =
+            {
+                new SqlParameter("@nombre",nombre),
+                new SqlParameter("@apellido",apellido),
+                new SqlParameter("@correo",correo),
+                new SqlParameter("@contrasena",contrasena)
+            };
+            //se envian los parametros y el nombre de el procedimeinto almacenado al dao
+            DataSet result = conex.ejecutarprocedimiento("nombreprocedimiento", parametros);
+        }
     }
 }

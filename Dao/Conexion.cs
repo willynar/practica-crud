@@ -14,7 +14,7 @@ namespace practica_crud.Dao
             string mensaje;
             try
             {
-                //SectionInformation crea la conexion
+                //Se crea la conexion
                 using (var conexion = new SqlConnection(ConfigurationManager.ConnectionStrings["conexion"].ToString()))
                 {
                     using (var comando = new SqlCommand(nombre, conexion))
