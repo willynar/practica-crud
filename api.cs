@@ -53,6 +53,8 @@ namespace practica_crud
 
                     streamWriter.Write(json);
                     streamWriter.Flush();
+                    streamWriter.Close();
+
                 }
 
                 //SearchOption realiza el envio y se recibe una respuesta de  el servicio
@@ -136,8 +138,11 @@ namespace practica_crud
             string responJsonText = await respon.Content.ReadAsStringAsync();
             MessageBox.Show(responJsonText);
         }
-        public string potCon<T>(string url, T objeto)
+        public string consumirpostYou<T>(string url, T objeto)
         {
+            //sacada de el tutorial
+            //https://www.youtube.com/watch?v=r6iW01ldfw4&list=PLLJJqiFt6VPoUO_mM5y6VSwGX-B7v__tu&index=56
+
             string result;
 
             JsonSerializerSettings configJson = new JsonSerializerSettings();//evitar que se serializen los nodos cuyo valor sea null
@@ -178,5 +183,7 @@ namespace practica_crud
             }
             return resul;
         }
+
+ 
     }
 }

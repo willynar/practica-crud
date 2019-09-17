@@ -35,18 +35,27 @@ namespace practica_crud
         {
 
             personaRequest objpersona = new personaRequest();
-            objpersona.nombre = textBox1.Text;
-            objpersona.apellido = textBox2.Text;
-            objpersona.correo = textBox3.Text;
-            objpersona.contrasena = textBox4.Text;
+            objpersona.nombre = textBox1.Text.Trim();
+            objpersona.apellido = textBox2.Text.Trim();
+            objpersona.correo = textBox3.Text.Trim();
+            objpersona.contrasena = textBox4.Text.Trim();
 
 
-            string Resultado = programa.Send<personaRequest>("https://apisena.000webhostapp.com/insertar.php", objpersona, "POST");
+            //string Resultado = programa.Send<personaRequest>("https://apisena.000webhostapp.com/insertar.php", objpersona, "POST");
             //string Resultado = programa.postMetodo("https://apisena.000webhostapp.com/insertar.php", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "POST");
             //programa.POSTreq("https://apisena.000webhostapp.com/insertar.php", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
 
-            //string Resultado = programa.potCon<personaRequest>("https://apisena.000webhostapp.com/insertar.php",objpersona);
+            string Resultado = programa.consumirpostYou<personaRequest>("https://apisena.000webhostapp.com/insertar.php", objpersona);
             //string Resultado = programa.Main<personaRequest>("https://apisena.000webhostapp.com/insertar.php",objpersona);
+            if (Resultado == "Guardado")
+            {
+                textBox1.Text = "";
+                textBox2.Text = "";
+                textBox3.Text = "";
+                textBox4.Text = "";
+            }
+            MessageBox.Show(Resultado, "My Application", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
 
         }
 
@@ -69,6 +78,11 @@ namespace practica_crud
             };
             //se envian los parametros y el nombre de el procedimeinto almacenado al dao
             DataSet result = conex.ejecutarprocedimiento("nombreprocedimiento", parametros);
+        }
+
+        private void Label1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
