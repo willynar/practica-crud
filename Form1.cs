@@ -4,6 +4,7 @@ using practica_crud.models.request;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Web;
 using System.Windows.Forms;
 
 namespace practica_crud
@@ -23,7 +24,14 @@ namespace practica_crud
 
         private async void Button1_Click(object sender, EventArgs e)
         {
-            string result = await programa.GetHttp();
+            ConsultaProducto objpersona = new ConsultaProducto();
+            int id = 1;
+            //string result = await programa.GetHttp("https://localhost:44395/api/obtenerProductos");
+
+            string result = programa.Send<ConsultaProducto>("http://ApiProCamp.somee.com/api/obtenerProductos", null, "GET");
+            //string result = programa.Send<ConsultaProducto>("https://localhost:44395/api/obtenerProductoUsuario/1", null, "GET");
+            //string result = programa.Send<ConsultaProducto>("https://localhost:44395/api/obtenerProductoUsuario/id?id=" + HttpUtility.UrlEncode("con espacios"), objpersona, "GET");
+
             DataSet data = new DataSet();
             data.Tables.Add(JsonConvert.DeserializeObject<DataTable>(result));
             dataGridView1.DataSource = data.Tables[0];
@@ -42,7 +50,7 @@ namespace practica_crud
 
 
             //string Resultado = programa.Send<personaRequest>("https://apisena.000webhostapp.com/insertar.php", objpersona, "POST");
-            //string Resultado = programa.postMetodo("https://apisena.000webhostapp.com/insertar.php", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "POST");
+            //string Resultado = programa.variosMetodos("https://apisena.000webhostapp.com/insertar.php", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text, "POST");
             //programa.POSTreq("https://apisena.000webhostapp.com/insertar.php", textBox1.Text, textBox2.Text, textBox3.Text, textBox4.Text);
 
             string Resultado = programa.consumirpostYou<personaRequest>("https://apisena.000webhostapp.com/insertar.php", objpersona);
@@ -82,7 +90,31 @@ namespace practica_crud
 
         private void Label1_Click(object sender, EventArgs e)
         {
+            
+        }
 
+        private void button4_Click(object sender, EventArgs e)
+        {
+            string result = suma(5, 5);
+        }
+
+
+
+
+        public string suma(int numero, int numero12)
+        {
+            string devolver;
+            int resultado = numero + numero12;
+            if (resultado == 7)
+            {
+                devolver = "el numero es 7";
+            }
+            else
+            {
+                devolver = "el numero no es 7";
+
+            }
+            return devolver;
         }
     }
 }

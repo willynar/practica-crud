@@ -37,7 +37,7 @@ namespace practica_crud.Dao
             }
             catch (Exception e)
             {
-                //SectionInformation debuelde un dataset con una tabla y el mensaje de error
+                //se devuelde un dataset con una tabla y el mensaje de error
                 mensaje = e.Message;
                 datatable.Columns.Add("error");
                 datatable.Rows.Add(mensaje);

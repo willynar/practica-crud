@@ -15,9 +15,10 @@ namespace practica_crud
 {
     class api
     {
-        public async Task<string> GetHttp()
+        public async Task<string> GetHttp(string url)
         {
-            WebRequest oRequest = WebRequest.Create("https://www.ensenanzaweb.com/test/get.php");
+            //WebRequest oRequest = WebRequest.Create("https://www.ensenanzaweb.com/test/get.php");
+            WebRequest oRequest = WebRequest.Create(url);
             WebResponse rResponse = oRequest.GetResponse();
             StreamReader sr = new StreamReader(rResponse.GetResponseStream());
             return await sr.ReadToEndAsync();
@@ -28,16 +29,11 @@ namespace practica_crud
         public string Send<T>(string url, T objectRequest, string method = "POST")
         {
             string result;
-
+            string Token = "ProcampAutorization";
             try
             {
-                //string oReply;
-
-                JavaScriptSerializer js = new JavaScriptSerializer();
-
-
                 //serializamos el objeto
-                string json = Newtonsoft.Json.JsonConvert.SerializeObject(objectRequest);
+                string json = JsonConvert.SerializeObject(objectRequest);
 
                 //peticion
                 WebRequest request = WebRequest.Create(url);
@@ -46,14 +42,18 @@ namespace practica_crud
                 request.PreAuthenticate = true;
                 request.ContentType = "application/json;charset=utf-8'";
                 //request.Timeout = 10000; //esto es opcional
+                request.Headers.Add("Token", Token);
+                //request.Headers.Add("Authorization", "Token " + Token);
 
-                //se escribre el json en estructura para el body
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                if (method != "GET")
                 {
-
-                    streamWriter.Write(json);
-                    streamWriter.Flush();
-                    streamWriter.Close();
+                    //se escribre el json en estructura para el body
+                    using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+                    {
+                        streamWriter.Write(json);
+                        streamWriter.Flush();
+                        streamWriter.Close();
+                    }
 
                 }
 
@@ -72,7 +72,9 @@ namespace practica_crud
             return result;
 
         }
-        public string postMetodo(string url, string _nombre, string _apellido, string _correo, string _contrasena, string method = "POST")
+
+
+        public string variosMetodos(string url, string _nombre, string _apellido, string _correo, string _contrasena, string method = "POST")
         {
             string result = null;
 
@@ -80,19 +82,23 @@ namespace practica_crud
             var request = WebRequest.Create(url);
             request.Method = method;
             request.ContentType = "application/json; charset=utf-8";
-            using (var writer = new StreamWriter(request.GetRequestStream()))
+            if (method != "GET")
             {
-                var serializer = new JavaScriptSerializer();
-                var payload = serializer.Serialize(new
+
+                using (var writer = new StreamWriter(request.GetRequestStream()))
                 {
-                    nombre = _nombre,
-                    apellido = _apellido,
-                    correo = _correo,
-                    contrasena = _contrasena
-                });
-                writer.Write(payload);
-                writer.Flush();
-                writer.Close();
+                    var serializer = new JavaScriptSerializer();
+                    var payload = serializer.Serialize(new
+                    {
+                        nombre = _nombre,
+                        apellido = _apellido,
+                        correo = _correo,
+                        contrasena = _contrasena
+                    });
+                    writer.Write(payload);
+                    writer.Flush();
+                    writer.Close();
+                }
             }
             //using (var response = (HttpWebResponse)request.GetResponse())
 
@@ -106,22 +112,7 @@ namespace practica_crud
 
             return result;
         }
-        public string PostMetodo(string url, string _nombre, string _apellido, string _correo, string _contrasena, string method = "POST")
-        {
-            string result = null;
 
-            try
-            {
-
-
-
-            }
-            catch (Exception e)
-            {
-                result = e.Message;
-            }
-            return result;
-        }
         public async void POSTreq(string url, string _nombre, string _apellido, string _correo, string _contrasena)
         {
             Uri requestUri = new Uri(url); //replace your Url  
@@ -184,6 +175,6 @@ namespace practica_crud
             return resul;
         }
 
- 
+
     }
 }

@@ -5,7 +5,6 @@ C:\Users\monke\source\repos\practica crud\obj\Debug\practica crud.csprojAssembly
 C:\Users\monke\source\repos\practica crud\obj\Debug\practica_crud.Form1.resources
 C:\Users\monke\source\repos\practica crud\obj\Debug\practica_crud.Properties.Resources.resources
 C:\Users\monke\source\repos\practica crud\obj\Debug\practica crud.csproj.GenerateResource.cache
-C:\Users\monke\source\repos\practica crud\obj\Debug\practica crud.csproj.CoreCompileInputs.cache
 C:\Users\monke\source\repos\practica crud\obj\Debug\practica crud.exe
 C:\Users\monke\source\repos\practica crud\obj\Debug\practica crud.pdb
 C:\Users\monke\source\repos\practica crud\bin\Debug\Newtonsoft.Json.dll
